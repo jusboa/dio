@@ -1,0 +1,23 @@
+version = 1
+revision = 3
+requires-python = ">=3.14.5"
+
+[[package]]
+name = "dio"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "uldaq" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "uldaq", specifier = ">=1.2.3" }]
+
+[[package]]
+name = "uldaq"
+version = "1.2.3"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/9d/9d/cae9cbdb8285730e8c7a6eae85f6120330a8e833a97cec95d9e288c3dfba/uldaq-1.2.3.tar.gz", hash = "sha256:2d405ead334bb4e37c20b72d8ec498f0e372b08f1d3323f622abe0581ac28b98", size = 94936, upload-time = "2021-11-12T21:59:06.076Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d8/7a/1335cf0fc8db9ffa283307b321686d2283abc22abc07ba2cecb8e1222544/uldaq-1.2.3-py2.py3-none-any.whl", hash = "sha256:44e29c0951d0c9a2b982f57ba85db0625a321717640a265cd64df51a6b61af82", size = 67060, upload-time = "2021-11-12T21:59:04.087Z" },
+]

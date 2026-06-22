@@ -3,9 +3,7 @@ from PyQt6.QtWidgets import (
     QApplication,
     QMainWindow,
     QVBoxLayout,
-    QHBoxLayout,
     QWidget,
-    QPushButton,
     QGridLayout)
 from PyQt6.QtCore import Qt
 from light import Light

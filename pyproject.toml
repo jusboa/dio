@@ -11,7 +11,7 @@ dependencies = [
     "uldaq>=1.2.3",
 ]
 [tool.pylint.main]
-extension-pkg-whitelist = ["PyQt6"]
+extension-pkg-allow-list = ["PyQt6"]
 
 [tool.pylint.basic]
 # Qt method matching

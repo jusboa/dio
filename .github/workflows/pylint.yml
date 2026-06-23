@@ -44,6 +44,10 @@ jobs:
     - name: Debug Pylint Config
       run: pylint --verbose --help-msg=import-error
 
+    - name: Debug PyQt6 Import
+      run: |
+        python -c "from PyQt6.QtWidgets import QApplication; print('Success')"   
+
     - name: Analysing the code with pylint
       run: |
         pylint $(git ls-files '*.py')

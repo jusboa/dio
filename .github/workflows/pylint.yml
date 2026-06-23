@@ -18,11 +18,11 @@ jobs:
     #   with:
     #     python-version: ${{ matrix.python-version }}
     - name: Install uv and set up Python
-        uses: astral-sh/setup-uv@v8.1.0
-        with:
-          enable-cache: true
-          # Optional: specify python-version if not defined in .python-version or pyproject.toml
-          # python-version: '3.11'
+      uses: astral-sh/setup-uv@v8.1.0
+      with:
+        enable-cache: true
+        # Optional: specify python-version if not defined in .python-version or pyproject.toml
+        # python-version: '3.11'
 
     # Install System Libraries (Required for PyQt6 C-extensions)
     # Must be done BEFORE uv sync to ensure wheels link correctly

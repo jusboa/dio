@@ -18,7 +18,7 @@ jobs:
     #   with:
     #     python-version: ${{ matrix.python-version }}
     - name: Install uv and set up Python
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v8.1.0
         with:
           enable-cache: true
           # Optional: specify python-version if not defined in .python-version or pyproject.toml

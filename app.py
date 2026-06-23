@@ -12,6 +12,7 @@ from switch import Switch
 
 N_CONTROLS = 8
 
+# pylint: disable=too-few-public-methods
 class MainWindow(QMainWindow):
     """ The main window hosts device output controls
     and device inputs inbdicators. """
@@ -44,9 +45,8 @@ class MainWindow(QMainWindow):
         main_widget.setLayout(main_layout)
         self.setCentralWidget(main_widget)
 
-app = QApplication(sys.argv)
-
-window = MainWindow()
-window.show()
-
-app.exec()
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    window.show()
+    app.exec()

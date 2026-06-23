@@ -8,46 +8,40 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.14"]
+    env:
+      QT_QPA_PLATFORM: offscreen  # Prevents GUI initialization errors
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.python-version }}
+    # - name: Set up Python ${{ matrix.python-version }}
+    #   uses: actions/setup-python@v3
+    #   with:
+    #     python-version: ${{ matrix.python-version }}
+    - name: Install uv and set up Python
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          # Optional: specify python-version if not defined in .python-version or pyproject.toml
+          # python-version: '3.11'
 
+    # Install System Libraries (Required for PyQt6 C-extensions)
+    # Must be done BEFORE uv sync to ensure wheels link correctly
     - name: Install Qt system dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y \
-          libgl1 \
-          libegl1 \
-          libxkbcommon0 \
-          libdbus-1-3 \
-          libxcb-xinerama0 \
-          libxcb-cursor0 \
-          libxcb-icccm4 \
-          libxcb-image0 \
-          libxcb-keysyms1 \
-          libxcb-randr0 \
-          libxcb-render-util0 \
-          libxcb-shape0 \
-          libxcb-xfixes0 \
-          libxcb-xinput0 \
-          libglib2.0-0
+          libgl1 libegl1 libxkbcommon0 libdbus-1-3 \
+          libxcb-xinerama0 libxcb-cursor0 libxcb-icccm4 \
+          libxcb-image0 libxcb-keysyms1 libxcb-randr0 \
+          libxcb-render-util0 libxcb-shape0 libxcb-xfixes0
 
+    # Install Python Dependencies using uv
     - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install pylint
-
-    - name: Debug Pylint Config
-      run: pylint --verbose --help-msg=import-error
-
-    - name: Debug PyQt6 Import
-      run: |
-        python -c "from PyQt6.QtWidgets import QApplication; print('Success')"   
+      run: uv sync --frozen --all-extras
+      # --frozen ensures exact versions from uv.lock are used
+      # --all-extras installs optional dependencies (like PyQt6) if defined in pyproject.toml
 
     - name: Analysing the code with pylint
-      run: |
-        pylint $(git ls-files '*.py')
+      run: uv run pylint --rcfile=pyproject.toml $(git ls-files '*.py')
+      # uv run ensures pylint executes within the uv-managed virtual environment
+

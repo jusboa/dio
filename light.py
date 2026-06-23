@@ -1,18 +1,23 @@
+""" Input indicator - LED like widget. """
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtGui import QPainter, QColor, QPen, QRadialGradient
 from PyQt6.QtCore import Qt
 
 class Light(QWidget):
+    """ Rounded light widget that could be turned on/off. """
     def __init__(self, parent=None, is_on=False):
         super().__init__(parent)
         self.is_on = is_on
         self.setFixedSize(50, 70)
 
     def set_state(self, state):
+        """ Turn the light on/off. """
         self.is_on = state
         self.update()
 
     def paintEvent(self, _event):
+        """ Overriden method to draw a light
+        emitting or being off based on last set_state(). """
         painter = QPainter(self)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
 

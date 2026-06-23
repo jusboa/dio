@@ -1,3 +1,4 @@
+""" Main application """
 import sys
 from PyQt6.QtWidgets import (
     QApplication,
@@ -12,6 +13,8 @@ from switch import Switch
 N_CONTROLS = 8
 
 class MainWindow(QMainWindow):
+    """ The main window hosts device output controls
+    and device inputs inbdicators. """
     def __init__(self):
         super().__init__()
 

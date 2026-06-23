@@ -1,3 +1,4 @@
+""" Output indicator - slide on/off switch widget."""
 from PyQt6.QtCore import (
     Qt,
     QPropertyAnimation,
@@ -10,6 +11,10 @@ from PyQt6.QtGui import (
 from PyQt6.QtWidgets import QCheckBox
 
 class Switch(QCheckBox):
+    """ When clicked the widget changes its
+    state. The state change is animated and the
+    current state is indicated by green (on) or gray (off)
+    background. """
     def __init__(self, parent=None):
         super().__init__(parent)
 
@@ -32,19 +37,27 @@ class Switch(QCheckBox):
         self.clicked.connect(self.setup_animation)
 
     def hitButton(self, _pos):
+        """ Overriden QCheckBox method to define
+        which widget area is clickable. Return True
+        to make clickable the entire widget. """
         return True
 
-    # Define a Qt property so QPropertyAnimation can smoothly slide the handle
     @pyqtProperty(float)
     def handle_position(self):
+        """ Define a Qt property so QPropertyAnimation
+        can smoothly slide the handle. """
         return self._handle_position
 
     @handle_position.setter
     def handle_position(self, pos):
+        """ Callback to get the current slider position
+        withing the widget during the animation.
+        Triggers the widget update. """
         self._handle_position = pos
         self.update()
 
     def setup_animation(self, checked):
+        """ Prepare and start tha slider animation. """
         self.animation.stop()
         if checked:
             self.animation.setEndValue(self.width() - self.height() + 3)
@@ -53,6 +66,7 @@ class Switch(QCheckBox):
         self.animation.start()
 
     def paintEvent(self, _event):
+        """ Overriden method to draw a widget. """
         painter = QPainter(self)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
